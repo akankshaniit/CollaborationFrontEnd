@@ -1,0 +1,19 @@
+<link rel="stylesheet"  type="text/css" href="resources/css/style4.css">
+
+
+<h2>Welcome to Applied Job</h2>
+<hr color= "blue" >
+
+
+<div class="container" ng-controller="JobController as ctrl">
+     <div class="form-group">
+         <lable>
+           {{selectedJob.title}}
+         </lable>  <br>
+            Applied Job <label>{{selectedJob.jobID}}</label>
+           <label>{{selectedJob.date_time}}</label>   <br><br>
+           <lable>{{selectedJob.descrption}}</lable>
+            <lable>{{selectedJob.status}}</lable>
+     </div>
+  </div>   
+     

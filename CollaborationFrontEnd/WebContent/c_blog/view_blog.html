@@ -1,0 +1,19 @@
+<link rel="stylesheet"  type="text/css" href="resources/css/style4.css">
+
+
+<h2>Welcome to Blogs</h2>
+<hr color= "blue" >
+
+
+<div class="container" ng-controller="BlogController as ctrl">
+     <div class="form-group">
+         <lable>
+           {{selectedBlog.title}}
+         </lable>  <br>
+            Written By <label>{{selectedBlog.user_id}}</label>
+            <br>
+           on<label>{{selectedBlog.date_time}}</label>   <br><br>
+           <lable>{{selectedBlog.descrption}}</lable>
+     </div>
+  </div>   
+     

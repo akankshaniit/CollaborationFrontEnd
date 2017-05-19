@@ -1,0 +1,45 @@
+<div class="container" ng-init="ctrl.fetchAllBlogs()" ng-controller="BlogController as ctrl">
+
+<h2><center>Welcome to Blogs</center></h2>
+<hr color="green">
+<div class="row">
+
+   <div class="page-header no-padding no-margin">
+       <div class="container">
+           <center>  <img  src="resources/images/b1.jpg" class="img-responsive" width=456px ></center>
+      </div>
+  </div>
+
+    <div  class="col-sm-12">
+
+        <table>
+           <tr ng-repeat="b in blogs">
+           
+
+              <td><a href="#" ng-click="ctrl.getSelectedBlog(b.id)">
+              Title: {{b.title}} - Written By: {{b.user_id}}</a></td>
+              
+              </tr>  
+        </table>
+   </div> 
+  </div>     
+</div>
+
+
+
+<style>
+table th td{
+ boarder:1px solid red;
+ boarder-collapse:collapse
+ padding:5px
+ }
+ 
+ table tr:nth-child(odd)
+ {
+ background-color:#f1f1f1;
+ }
+ table tr:nth-child(even)
+ {
+ background-color:ffffff;
+ }
+</style>

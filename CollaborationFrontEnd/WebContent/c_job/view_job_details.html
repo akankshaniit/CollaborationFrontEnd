@@ -1,0 +1,43 @@
+<div class="container" ng-controller="JobController as ctrl">
+
+<h2><center>Welcome to Job Details</center></h2>
+<hr color="green">
+<div class="row">
+
+   <div class="page-header no-padding no-margin">
+       <div class="container">
+           <center>  <img  src="resources/images/j5.jpg" class="img-responsive" width=456px ></center>
+      </div>
+  </div>
+
+   
+    <div class="col-sm-12">
+        <table>
+           <tr ng-repeat="job in ctrl.jobs">
+              <td>{{$index+1}}
+              <td><a href="#" ng-click="ctrl.getSelectedjob(blog.id)">
+              Title {{job.title}} - Description: {{job.description}} - Status: {{job.status}}  - Qualification: {{job.qualification}}</a></td>
+           </tr>  
+        </table>
+   </div> 
+  </div>     
+</div>
+
+
+
+<style>
+table th td{
+ boarder:1px solid red;
+ boarder-collapse:collapse
+ padding:5px
+ }
+ 
+ table tr:nth-child(odd)
+ {
+ background-color:#f1f1f1;
+ }
+ table tr:nth-child(even)
+ {
+ background-color:ffffff;
+ }
+</style>

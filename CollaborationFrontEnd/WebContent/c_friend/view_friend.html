@@ -1,0 +1,49 @@
+<div class="container" ng-controller="FriendController as ctrl">
+
+	<p>
+	<p>
+	<p>
+	<p>
+	
+	<p>
+	<p>
+	<p>
+	<p>
+	
+	<div class="form-group has-feedback"></div>
+	
+<!-- <div>   ng-button="ctrl.getMyFriendRequests()"  </div> -->
+                      
+
+<form>
+<div class="row">
+							
+
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="search"> Search for Friend</label>
+								<div class="col-md-7">
+									<input type="text" ng-model="sear_text" id="search"
+										class="username form-control input-sm"
+										placeholder="Enter your Friend ID" required ng-minlength="3" />
+								</div>
+							</div>
+						</div>
+
+ 
+ </form>
+
+	<div ng-repeat="friend in ctrl.friends | filter: sear_text">
+
+		<fieldset>
+			<legend></legend>
+
+			<p>Name: {{friend.friendID}} &nbsp; &nbsp;&nbsp; Status: {{friend.status}}
+			<a href="#/chat_forum">Send Message</a>
+			
+
+			
+		</fieldset>
+	</div>
+
+
+</div>

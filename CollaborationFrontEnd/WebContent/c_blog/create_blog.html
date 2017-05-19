@@ -1,0 +1,67 @@
+<link rel="stylesheet"  type="text/css" href="resources/css/style3.css">
+
+<div>
+    {{currentUser.name}}
+    <div ng-if="!currentUser">
+      <div class="alert alert-danger fade in">
+         <div>you are not logged in... please login <a href="#/login">here</a>
+         to create Blog
+         </div>
+       
+       <div> if U are not Register....then<a href="#/register">Register here</a>
+       </div>
+     </div>
+   </div>    
+   
+  
+   
+   <div ng-show="currentUser">
+   {{currentUser.name}}
+      <div class="generic container" ng-controller="BlogController as ctrl">
+      
+         <form ng-submit="ctrl.submit()" name="myForm"
+						class="form-horizontal">
+
+					<center><label>Please fill the Blog details</label></center>
+						     <div id="legend">
+                                  <legend class=""><center>Blog Details</center></legend>
+                             </div>
+						
+						
+
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="title">Title</label>
+								<div class="col-md-7">
+									<input type="text" ng-model="ctrl.blog.title" id="title"
+										class="username form-control input-sm"
+										placeholder="Enter your title" required ng-minlength="3" />
+								</div>
+							</div>
+						</div>
+
+
+                      <div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="description">Description</label>
+								<div class="col-md-7">
+									<input type="description" ng-model="ctrl.blog.description" id="description"
+										class="email form-control input-sm"
+										placeholder="Enter your Blog Description" required />
+
+								</div>
+							</div>
+						</div>
+						
+                       	<div class="row">
+							<div class="form-actions floatRight">
+								<input type="submit" value="Add Blog"
+									class="btn btn-primary btn-sm">
+								
+							</div>
+						</div>
+					</form>
+  </div>
+  </div>
+  </div>
+  
