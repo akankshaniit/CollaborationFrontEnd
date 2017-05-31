@@ -1,5 +1,3 @@
-'use strict';
-
 app.controller(
 				'UserController',
 				[
@@ -13,7 +11,7 @@ app.controller(
 								$cookieStore, $http) {
 							console.log("UserController...")
 						//var this = this;
-							this.user = {
+							$scope.user = {
 								id : '',
 								name : '',
 								password : '',
@@ -29,7 +27,7 @@ app.controller(
 								imageUrl : ''
 							};
 
-							this.currentUser = {
+							$rootScope.currentUser = {
 								id : '',
 								name : '',
 								password : '',
@@ -67,6 +65,23 @@ app.controller(
 							};
 
 							// this.fatchAllUsers();
+							
+							$scope.getByID= function(id){
+								console.log("GetBYId");
+								console.log("kjk"+id);
+								UserService
+								       .getByID(id)
+								       .then(
+												function(d) {
+													
+													$scope.user = d;
+												},
+												function(errResponse) {
+													console
+															.error('Error while creating User.');
+												});
+												
+							};
 
 							this.createUser = function(user) {
 								console.log("createUser...")
@@ -89,7 +104,7 @@ app.controller(
 										.myProfile()
 										.then(
 												function(d) {
-													user = d;
+													$scope.user = d;
 													$location
 															.path("/myProfile")
 												},
@@ -105,7 +120,7 @@ app.controller(
 										.accept(id)
 										.then(
 												function(d) {
-													this.user = d;
+													$scope.user = d;
 													this.fetchAllUsers
 													$location
 															.path("/manage_users")
@@ -124,7 +139,7 @@ app.controller(
 								var reason = prompt("Please enter the reason");
 								UserService.reject(id, reason).then(
 										function(d) {
-											this.user = d;
+											$scope.user = d;
 											this.fetchAllUsers
 											$location.path("/manage_users")
 											alert(this.user.errorMessage)
@@ -149,15 +164,16 @@ app.controller(
 
 							this.validate = function(user) {
 								console.log("authenticate...");
+								console.log(this.user);
 								UserService
-										.validate(user)
+										.validate(this.user)
 										.then(
 
 												function(data) {
 														console.log(data);
-														console.log("akku-niyu:"+user);
-													user = data;
-													console.log(user);
+														console.log("akku-niyu:"+$scope.user);
+													$scope.user = data;
+													console.log($scope.user);
 													console
 															.log("user.errorCode: "
 																	+user.errorCode)
@@ -183,7 +199,7 @@ app.controller(
 														
 
 														console.log('Current user : '+user);
-														$rootScope.currentUser = user;
+														$rootScope.currentUser = $scope.user;
 														console.log($rootScope.currentUser);
 														$cookieStore.put('currentUser',$rootScope.currentUser);
 														console.log($rootScope.currentUser.role);
@@ -201,7 +217,7 @@ app.controller(
 
 							this.logout = function() {
 								console.log("user Controller logout")
-								$rootScope.currentUser = {};
+								$rootScope.currentUser ='';
 								$cookieStore.remove('currentUser');
 								UserService.logout();
 								console.log("silence.....");
@@ -233,6 +249,9 @@ app.controller(
 								this.reset();
 							};
 
+							$scope.getCurrentUser= function(){
+								$rootScope.currentUser = $cookieStore.get('currentUser');
+							};
 							this.reset = function() {
 								this.user = {
 									id : '',

@@ -1,0 +1,42 @@
+
+<div class="container" ng-controller="FriendController as ctrl">
+
+	
+	
+	<div class="form-group has-feedback" ng-init="ctrl.checkFriendRequestStatus()></div>
+	
+	<form>
+<div class="row">
+							
+
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="search"> Search </label>
+								<div class="col-md-7">
+									<input type="text" ng-model="sear_text" id="search"
+										class="username form-control input-sm"
+										placeholder="Enter your Friend Name" required ng-minlength="3" />
+								</div>
+							</div>
+						</div>
+
+ 
+ </form>
+
+ 
+
+	<div ng-repeat="friend in ctrl.checkFriendRequestStatus | filter: sear_text">
+	<div ng-controller="UserController as uctrl" ng-init="getByID(friend.friend_id)">
+		<fieldset>
+			<legend>Send Friends List status </legend>
+			
+			<!-- <p>Online ?: {{user.isOnline}}   -->
+
+			<p>Name: {{user.name}}
+			   &nbsp; &nbsp;&nbsp; Status: {{friend.status}} 
+			    
+			
+		</fieldset>
+	</div>
+
+
+</div>

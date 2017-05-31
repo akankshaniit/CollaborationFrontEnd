@@ -4,13 +4,16 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
 	
 	console.log("FriendService...")
 	
-	var BASE_URL='http://localhost:8081/CollaborationBackEnd'
+	var BASE_URL='http://localhost:8080/CollaborationRestService'
     return {
          
 		getMyFriends: function() {
-                    return $http.get(BASE_URL+'/myFriends')
+			console.log("hiii....");
+                    return $http.get(BASE_URL+'/myfriends')
                             .then(
+                     
                                     function(response){
+                                    	
                                         return response.data;
                                     }, 
                                    null
@@ -18,6 +21,7 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
             },
              
             sendFriendRequest: function(friendID){
+            	console.log("Add Friend ID")
                     return $http.get(BASE_URL+'/addFriend/'+friendID)
                             .then(
                                     function(response){
@@ -28,28 +32,46 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
                                         return response.data;
                                     }, 
                                     function(errResponse){
-                                        console.error('Error while creating friend');
+                                        console.error('Error while Sending friend request');
                                         return $q.reject(errResponse);
                                     }
                             );
             },
             
             getMyFriendRequests: function(){
+            	console.log("FriendService getMyFriendRequest method");
                 return $http.get(BASE_URL+'/getMyFriendRequests/')
                         .then(
+                        		
                                 function(response){
+                                	
                                     return response.data;
                                 }, 
                                 function(errResponse){
-                                    console.error('Error while creating friend');
+                                    console.error('Error while Feaching  friend Request');
                                     return $q.reject(errResponse);
                                 }
                         );
         },
         
-        acceptFriendRequest: function(friendID){
+        checkFriendRequestStatus: function(){
+       	 return $http.get(BASE_URL+'/friendreqeststatus/')  
+       	                      .then(
+       	                    		  function(response){
+                                             return response.data;
+                                         }, 
+                                         
+                                         function(errResponse){
+                                             console.error('Error while checking friend request status');
+                                             return $q.reject(errResponse);
+                                         }
+       	                      
+       	                      );
+          },
+   
+          acceptFriendRequest: function(friendID){
         	console.log("Starting of the method acceptFriendRequest")
-            return $http.get(BASE_URL+'/accepttFriend/'+friendID)
+            return $http.put(BASE_URL+'/acceptFriend/'+friendID)
                     .then(
                             function(response){
                                 return response.data;
@@ -63,7 +85,7 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
          
     rejectFriendRequest: function(friendID){
     	console.log("Starting of the method rejectFriendRequest")
-        return $http.get(BASE_URL+'/getMyFriendRequests/'+friendID)
+        return $http.get(BASE_URL+'/rejectFriend/'+friendID)
                 .then(
                         function(response){
                             return response.data;
@@ -107,5 +129,10 @@ unFriend: function(friendID){
            
          
     };
+    
+   
+    
+    
+          
  
 }]);

@@ -1,59 +1,46 @@
-
-
 <link rel="stylesheet"  type="text/css" href="resources/css/style2.css">
 
 
-<div class="container" ng-controller="JobController as ctrl">
+<div class="container"  ng-controller="JobController as ctrl">
 
-	<p>
-	<p>
-	<p>
-	<p>
-	
-	<p>
-	<p>
-	<p>
-	<p>
-	
-	<div class="form-group has-feedback"></div>
+		
+	<div class="form-group has-feedback" ng-init="fetchAllJobs()">
 	
 
 <form>
-<div class="row">
+   <div class="row">
 							
 
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="search"> Search </label>
 								<div class="col-md-7">
-									<input type="text" ng-model="searchJob" id="search"
+									<input type="text" ng-model="sear_Job" id="search"
 										class="username form-control input-sm"
-										placeholder="Enter your Job ID" required ng-minlength="3" />
+										placeholder="Enter your Job Title" required ng-minlength="3" />
 								</div>
 							</div>
-						</div>
+</div>
 
  
  </form>
 
-<div ng-repeat="user in ctrl.users | filter: searchJob">
+<div ng-repeat="job in jobs | filter: sear_Job">
 
 		<fieldset>
 			<legend></legend>
 			
 			<!-- <p>Online ?: {{user.isOnline}}   -->
 
-			<p>ID: {{user.id}} &nbsp; &nbsp;&nbsp; Name: {{user.name}}
-			    &nbsp; &nbsp;&nbsp; 
+			<p>Name Of Job: {{job.title}} &nbsp; &nbsp;&nbsp; Post Date: {{job.date_time}}
+			    &nbsp; &nbsp;&nbsp;Status: {{job.status}}&nbsp; &nbsp;&nbsp;Qualification: {{job.qualification}}
 			    
 			     <button type="button" 
-			        ng-click="ctrl.sendFriendRequest(user.id)" 
-			       class="btn btn-info btn-sm">Send Friend Request</button>
+			        ng-click="ctrl.applyJob(job.id)" 
+			       class="btn btn-info btn-sm">Apply For Job</button>
 			  </p>
 
-			<p>Email: {{user.email}} &nbsp; &nbsp;&nbsp; Mobile:{{user.mobile}}</p>
-
-			<p> Address:{{user.address}} &nbsp; &nbsp;&nbsp; Role :{{user.role}}</p>
+			
 		</fieldset>
 	</div>
-
 </div>
+

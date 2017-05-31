@@ -14,14 +14,19 @@
           
         </ul>
       </li>
-      
+    
+      <div ng-show="currentUser">
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Friends <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#search_friend">Search Friend</a></li>
           <li><a href="#view_friend">View Friend</a></li>
+          <li><a href="#viewFriendRequest">Accept Friend</a></li>
+          
           
         </ul>
       </li>
+      </div>
+      
       
      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" >Jobs <span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -44,11 +49,11 @@
       </div>
       
       <div ng-show="currentUser">
-       <li><a href="#" ng-click="ctrl.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+       <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </div>
       
       <div ng-show="currentUser">
-       <li>|<a href="#" ng-click="ctrl.myProfile()"><span class="glyphicon glyphicon-user"></span> MyProfile</a></li>
+       <li>|<a href="#" ng-click="myProfile()"><span class="glyphicon glyphicon-user"></span> MyProfile</a></li>
       </div>
     </ul>
   </div>

@@ -19,6 +19,21 @@ app.service('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
                             );
             },
             
+            getByID:function(id){
+            	console.log("Calling getByID");
+            	 return $http.get(BASE_URL+'/user/'+id)
+            	 .then(
+                         function(response){
+                             return response.data;
+                         }, 
+                         function(errResponse){
+                             console.error('Error while Getting ID');
+                            
+                         }
+                 );
+            },
+            
+            
             myProfile: function() {
             	console.log("calling myProfile ")
                     return $http.get(BASE_URL+'/myProfile')
@@ -104,9 +119,11 @@ app.service('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
                 return $http.post(BASE_URL+'/validate',user)
               
                         .then(
+                        		
                         		 
                                 function(response){
                                 console.log("data returned: "+response.data);
+                                
                                     return response.data;   //user json object
                               
                                     

@@ -5,6 +5,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.min.js"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/sockjs/1.1.4/sockjs.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+ 
+ 
  
  <script src="app.js"></script>
   <script src="c_user/UserController.js"></script>
@@ -13,18 +17,21 @@
 	<script src="c_blog/BlogService.js"></script>
 	<script src="c_friend/FriendController.js"></script>
 	<script src="c_friend/FriendService.js"></script>
+	<script src="c_chat/chatcontroller.js"></script>
+	<script src="c_chat/chatservice.js"></script>
+	<script src="c_job/JobController.js"></script>
+	<script src="c_job/JobService.js"></script>
+	
+	
+	
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    </head>
-<body ng-app="myApp">
+<body ng-app="myApp" ng-controller="UserController as ctrl">
 
 <div ng-include="'c_common/header.html'"></div>
-
-<div ng-controller="UserController as ctrl"> 
-<br>
-<br>
-<br>
+<div class="container" ng-init="getCurrentUser()">
 {{currentUser.name}}
 {{currentUser.role}}
 <div ng-show="currentUser.id">
@@ -54,7 +61,6 @@
     </div>
 <br> <br> <br>
 </div>
-
 <div ng-view></div>
 
 
