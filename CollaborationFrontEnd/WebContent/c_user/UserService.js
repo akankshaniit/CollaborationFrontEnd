@@ -39,7 +39,7 @@ app.service('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
                     return $http.get(BASE_URL+'/myProfile')
                             .then(
                                     function(response){
-                                    	console.log(responce.data);
+                               
                                         return response.data;
                                     }, 
                                    null
@@ -87,7 +87,7 @@ app.service('UserService', ['$http', '$q','$rootScope', function($http, $q,$root
              
             updateUser: function(user, id){
             	console.log("calling fetchAllUsers ")
-                    return $http.put(BASE_URL+'/updateuser/', user)  //2
+                    return $http.post(BASE_URL+'/updateUser/', user)  //2
                             .then(
                                     function(response){
                                         return response.data;

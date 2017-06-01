@@ -29,11 +29,19 @@
 	<div ng-repeat="friend in friends | filter: sear_text">
 				Friend ID: {{friend.id}}
 			<div ng-controller="UserController as uctrl" ng-init="getByID(friend.friend_id)">
-		
+		<div ng-show="currentUser.id!=friend.friend_id" >
 			<p>Name: {{user.name}} &nbsp; &nbsp;&nbsp; Status: {{user.isOnline}}
 			<a href="#/chat">Send Message</a>
 			
-
+</p>
+</div>
+	<div ng-controller="UserController as uctrl" ng-init="getByID(friend.user_id)">
+		<div ng-show="currentUser.id!=friend.user_id" >
+			<p>Name: {{user.name}} &nbsp; &nbsp;&nbsp; Status: {{user.isOnline}}
+			<a href="#/chat">Send Message</a>
+			
+</p>
+</div>
 			
 		
 	</div>

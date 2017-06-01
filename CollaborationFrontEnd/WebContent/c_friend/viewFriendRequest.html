@@ -1,7 +1,6 @@
 
 <div class="container" ng-controller="FriendController as ctrl">
 
-	
 	<div class="form-group has-feedback" ng-init="getMyFriendRequests()">
 	
 	<form>
@@ -21,33 +20,33 @@
  
  </form>
 
- 
+ <fieldset>
+			<legend>Waiting Friends List </legend>
 
 	<div ng-repeat="friend in friends | filter: sear_text ">
-	Friend ID: {{friend.friend_id}}
-	<div ng-controller="UserController as uctrl" ng-init="getByID(friend.friend_id)">
-		<fieldset>
-			<legend>Waiting Friends List </legend>
+	Friend ID: {{friend.user_id}}
+	<div ng-controller="UserController as uctrl" ng-init="getByID(friend.user_id)">
+		
 			
-			 <p>Online  {{user.isOnline}}   </p>
+			 <p>Online:  {{user.isOnline}}   </p>
 
 			<p>Name: {{user.name}}
 			    
 			     <button type="button" 
-			        ng-click="acceptFriendRequest(friend.friend_id)" 
+			        ng-click="acceptFriendRequest(friend.user_id)" 
 			       class="btn btn-info btn-sm">Accept Friend Request</button>
 			       
 			       
 			     <button type="button" 
-			        ng-click="rejectFriendRequest(friend.friend_id)" 
+			        ng-click="rejectFriendRequest(friend.user_id)" 
 			       class="btn btn-info btn-sm">Reject Friend Request</button>
 			  </p>
-
-			
-		</fieldset>
-	</div>
+</div>
 
 
 </div>
+			
+		</fieldset>
+	
 </div>
 </div>

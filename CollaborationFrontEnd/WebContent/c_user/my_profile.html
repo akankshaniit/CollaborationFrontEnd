@@ -3,31 +3,21 @@
 <body>
 	<div class="generic-container" ng-controller="UserController as ctrl">
 
- Current User :  {{currentUser}}
+
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<span class="lead">My Profile </span>
 				</div>
 				<div class="formcontainer">
-					<form ng-submit="ctrl.myProfile()" name="myForm"
+					<form ng-submit="ctrl.updateUser()"  name="myForm"
 						class="form-horizontal">
 
-							<div class="row">
-							<div class="form-group col-md-12">
-								<label class="col-md-2 control-lable" for="id">ID</label>  
-								<div class="col-md-7">
-									<input type="text"  ng-model= "currentUser.id"  id="id"
-										class="userid form-control input-sm"
-										placeholder="Enter your ID" required ng-minlength="3" />
-								</div>
-							</div>
-						</div>
-						
+							
 						
 						<div class="row">
 							<div class="form-group col-md-12">
-								<label class="col-md-2 control-lable" for="name">Name</label>  
+								<label class="col-md-2 control-lable" >Name</label>  
 								<div class="col-md-7">
 									<input type="text"  ng-model= "currentUser.name"   id="name"
 										class="userid form-control input-sm"
@@ -38,17 +28,7 @@
 						
 						
 
-						<div class="row">
-							<div class="form-group col-md-12">
-								<label class="col-md-2 control-lable" for="password">Password</label>
-								<div class="col-md-7">
-									<input type="password" ng-model= "currentUser.password"  
-										id="password" class="username form-control input-sm"
-										placeholder="Enter your password" required ng-minlength="3" />
-								</div>
-							</div>
-						</div>
-
+						
 
 						<div class="row">
 							<div class="form-group col-md-12">
@@ -92,7 +72,7 @@
 
 						<div class="row">
 							<div class="form-actions floatRight">
-								<input type="submit" value="Update"
+								<input type="submit" value="Update" 
 									class="btn btn-primary btn-sm">
 								
 							</div>

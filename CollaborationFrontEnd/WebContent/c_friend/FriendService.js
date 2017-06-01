@@ -71,10 +71,12 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
    
           acceptFriendRequest: function(friendID){
         	console.log("Starting of the method acceptFriendRequest")
-            return $http.put(BASE_URL+'/acceptFriend/'+friendID)
+             $http.put(BASE_URL+'/acceptFriend/'+friendID)
                     .then(
-                            function(response){
-                                return response.data;
+                            function(data){
+                            	console.log(data);
+                            	console.log("data updated....");
+                               
                             }, 
                             function(errResponse){
                                 console.error('Error while creating acceptFriendRequest');
@@ -85,7 +87,7 @@ app.factory('FriendService', ['$http', '$q','$rootScope', function($http, $q,$ro
          
     rejectFriendRequest: function(friendID){
     	console.log("Starting of the method rejectFriendRequest")
-        return $http.get(BASE_URL+'/rejectFriend/'+friendID)
+        return $http.put(BASE_URL+'/rejectFriend/'+friendID)
                 .then(
                         function(response){
                             return response.data;

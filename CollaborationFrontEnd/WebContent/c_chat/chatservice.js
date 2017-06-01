@@ -1,4 +1,4 @@
-app.service("chatservice", function($q, $timeout) 
+app.factory('chatservice', ['$http', '$q','$timeout', function($http, $q,$timeout) 
 {
 	console.log('chat service')
     var service = {}
@@ -89,4 +89,4 @@ app.service("chatservice", function($q, $timeout)
     
     initialize();
     return service;
-});
+}]);

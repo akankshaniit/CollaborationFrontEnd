@@ -10,9 +10,11 @@ app.controller('FriendController', ['UserService','$scope', 'FriendService','$lo
   				errorMessage : ''
   			};
   		$scope.users = [];
+  		self.msg="";
   		        
   		$scope.getMyFriendRequests = function(){
   		        	 console.log("Getting my Friend Request");
+  		        	$scope.friends=[];
   		              FriendService.getMyFriendRequests()
   		                      .then(
   		                             function(d)
@@ -20,7 +22,7 @@ app.controller('FriendController', ['UserService','$scope', 'FriendService','$lo
   		                            	 $scope.friends = d;
   		                            	 console.log($scope.friends);
   		                           
-  		                            	 $location.path="/viewFriendRequest";
+  		                            	 
   		                            	 
   		                             },
   		                              function(errResponse){
@@ -83,7 +85,16 @@ app.controller('FriendController', ['UserService','$scope', 'FriendService','$lo
         	 console.log("Accept request....");
               FriendService.acceptFriendRequest(id)
                       .then(
-                              $scope.getMyFriendRequests(), 
+                    		  
+                    		  function()
+                    		  {
+                    			  
+                                  console.log("Accepted");
+                    			  
+                                 alert("Friend Accepted Successfully");
+                                 $location.path="/viewFriendRequest";
+                              
+                    		  },
                               function(errResponse){
                                    console.error('Error while acceptFriendRequest');
                               } 

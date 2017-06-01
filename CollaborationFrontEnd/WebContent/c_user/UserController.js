@@ -41,8 +41,7 @@ app.controller(
 								errorMessage : '',
 								imageUrl : ''
 							};
-
-							$scope.users = []; // json array
+														$scope.users = []; // json array
 
 							$scope.orderByMe = function(x) {
 								$scope.myOrderBy = x;
@@ -105,6 +104,7 @@ app.controller(
 										.then(
 												function(d) {
 													$scope.user = d;
+													
 													$location
 															.path("/myProfile")
 												},
@@ -147,10 +147,22 @@ app.controller(
 										}, null);
 							};
 
-							this.updateUser = function(currentUser) {
+							this.updateUser = function() {
 								console.log("updateUser...")
-								UserService.updateUser(currentUser).then(
-										this.fetchAllUsers, null);
+								UserService.updateUser($rootScope.currentUser)
+								.then(
+										function(d) {
+											
+											alert("Successfully updated the details")
+														$cookieStore.remove('currentUser');
+								$cookieStore.put('currentUser',d);
+								$rootScope.currentUser=d;
+					
+										$location.path("/");
+										}
+										
+										);
+										
 							};
 
 							this.update = function() {
@@ -176,11 +188,11 @@ app.controller(
 													console.log($scope.user);
 													console
 															.log("user.errorCode: "
-																	+user.errorCode)
-													if (user.errorCode == "404")
+																	+$scope.user.errorCode)
+													if ($scope.user.errorCode == "404")
 
 													{
-														alert(user.errorMessage);
+														alert($scope.user.errorMessage);
 
 														user.email = "";
 														user.password = "";
@@ -243,8 +255,8 @@ app.controller(
 
 							this.submit = function() {
 								{
-									console.log('Saving New User', this.user);
-									this.createUser(this.user);
+									
+									this.createUser($scope.user);
 								}
 								this.reset();
 							};
@@ -266,5 +278,8 @@ app.controller(
 								};
 								$scope.myForm.$setPristine(); // reset Form
 							};
+							$scope.getCurrentUser();
+
 
 						} ]);
+

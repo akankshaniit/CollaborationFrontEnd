@@ -23,10 +23,12 @@ app.config(function($routeProvider) {
 		controller : "UserController"
 	})
 	
-	.when("/myProfile", {
+	.when("/my_profile", {
 		templateUrl : "c_user/my_profile.html",
 		controller : "UserController"
 	})
+	
+	
 	
 	.when("/upload_profile", {
 		templateUrl : "c_upload/upload.html",

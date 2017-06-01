@@ -1,3 +1,4 @@
+<div class="container" ng-controller="UserController as ctrl">
 <nav  class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -49,16 +50,16 @@
       </div>
       
       <div ng-show="currentUser">
-       <li><a href="#" ng-click="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+       <li><a href="#" ng-click="ctrl.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </div>
       
       <div ng-show="currentUser">
-       <li>|<a href="#" ng-click="myProfile()"><span class="glyphicon glyphicon-user"></span> MyProfile</a></li>
+       <li>|<a href="#my_profile" ><span class="glyphicon glyphicon-user"></span> MyProfile</a></li>
       </div>
     </ul>
   </div>
 </nav>
-  
+</div>  
   
   
  
