@@ -1,13 +1,10 @@
-app.factory('chatservice', ['$http', '$q','$timeout', function($http, $q,$timeout) 
+angular.module("myApp.services").service('chatservice', ['$http','$q','$timeout','$rootScope', function($http, $q,$timeout,$rootScope) 
 {
-	console.log('chat service')
-    var service = {}
-	var listener = $q.defer()
-	var socket = 
-    {
-      client: null,
-      stomp: null
-    }
+	console.log('chatservice');
+	 var service = {}, listener = $q.defer(), socket = {
+	      client: null,
+	      stomp: null
+	    }, messageIds = [];
     
     var messageIds = [];
     
@@ -18,16 +15,16 @@ app.factory('chatservice', ['$http', '$q','$timeout', function($http, $q,$timeou
     
     service.receive = function() 
     {
-    	console.log('receive')
-    	console.log('listener.promise: '+listener.promise)
+    	console.log('receive');
+    	console.log('listener.promise: '+listener.promise);
       return listener.promise;
     };
     
     service.send = function(message) 
     {
-    	console.log('send')
-    	console.log('MESSAGE '+message)
-      var id = Math.floor(Math.random() * 1000000);
+    	console.log('send');
+    	console.log('MESSAGE '+message);
+      var id = $rootScope.currentUser.name;
       socket.stomp.send(service.CHAT_BROKER, 
       {
         priority: 9
@@ -45,7 +42,7 @@ app.factory('chatservice', ['$http', '$q','$timeout', function($http, $q,$timeou
     
     var reconnect = function() 
     {
-    	console.log("reconnect")
+    	console.log("reconnect");
       $timeout(function() 
       {
         initialize();
@@ -56,22 +53,23 @@ app.factory('chatservice', ['$http', '$q','$timeout', function($http, $q,$timeou
     
     var getMessage = function(data) 
     {
-    	console.log("getMessage")
-    	console.log("Data: "+data)
-      var message = JSON.parse(data)
+    	console.log("getMessage");
+    	console.log("Data: "+data);
+      var message = JSON.parse(data);
       var out = {};
       out.message = message.message;
       out.time = new Date(message.time);
+      out.id=message.id;
+      console.log("data: "+data);
+      console.log("message: "+message.message);
+      console.log("time: "+message.time);
       
-      console.log("data: "+data)
-      console.log("message: "+message.message)
-      console.log("time: "+message.time)
       return out;
     };
     
     var startListener = function() 
     {
-    	console.log("Start Listner")
+    	console.log("Start Listner");
       socket.stomp.subscribe(service.CHAT_TOPIC, function(data) 
       {
         listener.notify(getMessage(data.body));
@@ -80,7 +78,7 @@ app.factory('chatservice', ['$http', '$q','$timeout', function($http, $q,$timeou
     
     var initialize = function() 
     {
-    	console.log("Initialize")
+    	console.log("Initialize");
       socket.client = new SockJS(service.SOCKET_URL);
       socket.stomp = Stomp.over(socket.client);
       socket.stomp.connect({}, startListener);

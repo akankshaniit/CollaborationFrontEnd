@@ -1,5 +1,6 @@
 //var app = angular.module("myApp", [ "ngRoute","ngCookies","ngFileUpload" ]);
-var app = angular.module("myApp", ["ngRoute","ngCookies"]);
+var app = angular.module("myApp", ["ngRoute","ngCookies","myApp.controllers",
+	  "myApp.services"]);
 app.config(function($routeProvider) {
 	
 	$routeProvider
@@ -136,3 +137,5 @@ app.config(function($routeProvider) {
 	
 	
 });
+angular.module("myApp.controllers", []);
+angular.module("myApp.services", []);
