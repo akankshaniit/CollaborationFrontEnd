@@ -11,8 +11,8 @@ app.controller(
 				function($scope, BlogService, $location, $rootScope,
 						$cookieStore, $http) {
 					console.log("BlogController...");
-				//	var this = this;
-					this.blog = {
+					var self = this;
+					self.blog = {
 						id : '',
 						title : '',
 						user_id : '',
@@ -25,7 +25,8 @@ app.controller(
 						
 					};
 					
-					this.currentBlog = {
+					
+					self.currentBlog = {
 							id : '',
 							title : '',
 							user_id : '',
@@ -36,10 +37,24 @@ app.controller(
 							errorCode : '',
 							errorMessage : '',
 						};
+					
+					self.comment={
+						id : '',
+						content : '',
+						user_id : '',
+						blog_id : '',
+						commentedAt : '',
+					
+						errorCode : '',
+						errorMessage : '',
+					};
 
 					$scope.blogs = []; // json array
 					
-					this.getSelectedBlog=getBlog;
+					$scope.comments = [];
+					
+					
+					self.getSelectedBlog=getBlog;
 					
 					$scope.orderByMe = function(x) {
 						$scope.myOrderBy = x;
@@ -52,6 +67,7 @@ app.controller(
 						BlogService.getBlog(id)
 						.then(
 						        function(d){
+						        	self.blog=d;
 						        	$location.path("/view_blog");
 						        },
 						        function(errResponse)
@@ -62,7 +78,7 @@ app.controller(
 					};
 					
 					//method definition
-					this.fetchAllBlogs = function() {
+					self.fetchAllBlogs = function() {
 						console.log("fetchAllBlogs...")
 						BlogService
 								.fetchAllBlogs()
@@ -77,9 +93,9 @@ app.controller(
 										});
 					};
 					
-					// this.fatchAllBlogs();
+					// self.fatchAllBlogs();
 
-					this.createBlog = function(blog) {
+					self.createBlog = function(blog) {
 						console.log("createBlog...");
 						BlogService
 								.createBlog(blog)
@@ -94,12 +110,12 @@ app.controller(
 										});
 					};
 
-					this.updateBlog = function(blog,id) {
+					self.updateBlog = function(blog,id) {
 						console.log("createBlog...")
 						BlogService
 								.updateBlog(blog)
 								.then(
-										this.fetchAllBlogs,
+										self.fetchAllBlogs,
 										function(errResponse) {
 											console
 													.error('Error while updating Blog.');
@@ -108,14 +124,14 @@ app.controller(
 					};
 					
 					
-					this.accept=function(id){
+					self.accept=function(id){
 						console.log("accept")
 						JobService.
 						    accept(id)
 						    .then(
 						           function(d){
-						        	   this.job=d;
-						        	   this.fetchAllBlogs
+						        	   self.blog=d;
+						        	   self.fetchAllBlogs
 						        	   $location.path("/manage_job")
 						        	   alert(self.job.errorMessage)
 						           },
@@ -129,17 +145,18 @@ app.controller(
 			  };
 			  
 			  
-			  this.reject=function(id){
+			  self.reject=function(id){
 					console.log("reject")
-					var reason= promt("please enter Reason");
-					JobService.
+					var reason= prompt("please enter Reason");
+					BlogService.
 					    reject(id,reason)
 					     .then(
 						           function(d){
-						        	   this.job=d;
-						        	   this.fetchAllBlogs
-						        	   $location.path("/manage_job")
-						        	   alert(self.job.errorMessage)
+						        	   console.log(d);
+						        	   self.blog=d;
+						        	   self.fetchAllBlogs();
+						        	   $location.path("/list_blog");
+						        	   alert(self.blog.errorMessage);
 						           },
 						           function(errResponse) {
 										console
@@ -149,27 +166,89 @@ app.controller(
 				    
 				  };
 				  
-				  this.submit = function() {
+				  self.submit = function() {
 						{
-							console.log('Saving New Blog', this.blog);
-							this.blog.user_id=$rootScope.currentUser.id;
-							this.createBlog(this.blog);
+							console.log('Saving New Blog', self.blog);
+							self.blog.user_id=$rootScope.currentUser.id;
+							self.createBlog(self.blog);
 						}
-						this.reset();
+						self.reset();
 					};
 				  
 					
-					this.edit=function(id){
+					self.edit=function(id){
 						console.log('id to be edited',id)
-						for(i=0;i<this.blogs.length;i++)
+						for(i=0;i<self.blogs.length;i++)
 							{
 							if(self.blogs[i].id==id)
 								{
-								self.blog=angular.copy(this.blogs[i]);
+								self.blog=angular.copy(self.blogs[i]);
 								break;
 								}
 							}
 						
 					};
+					
+					self.deleteBlog=function(id){
+						console.log("delete")
+						BlogService.
+						 deleteBlog(id)
+						     .then(
+							           function(d){
+							        	   console.log(d);
+							        	   self.blog=d;
+							        	   self.fetchAllBlogs();
+							        	   $location.path("/list_blog");
+							        	   alert(self.blog.errorMessage);
+							           },
+							           function(errResponse) {
+											console
+													.error('Error while rejecting Blog.');
+										
+				               } );
+					    
+						
+					};
+					
+					
+					self.createComment = function(comment) {
+						console.log("createComment...");
+						
+						self.comment.blog_id = $rootScope.selectedBlog.id;
+						self.comment.user_id = $rootScope.currentUser.id;
+						console.log("blog id : "+ self.comment.blog_id );
+						console.log("user id : "+ self.comment.user_id );
+						console.log("content : "+ self.comment.content );
+						console.log("createComment...");
+						BlogService
+								.createComment(self.comment)
+								.then(
+										function(d) {
+											self.fetchAllComments($rootScope.selectedBlog.id);
+											alert("Thank you for ur Comment");
+											$location.path("/view_blog")
+										},
+										function(errResponse) {
+											console
+													.error('Error while creating Blog.');
+										});
+					};
+					
+					self.fetchAllComments = function(id) {
+						console.log("fetchAllComments...")
+						BlogService
+								.fetchAllComments(id)
+								.then(
+										function(d) {
+											$scope.comments = d;
+											console.log($scope.comments);
+										},
+										function(errResponse) {
+											console
+													.error('Error while fetching Commentss');
+										});
+					};
+					
+					
 					
 				} ]);

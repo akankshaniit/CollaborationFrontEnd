@@ -41,6 +41,11 @@ app.config(function($routeProvider) {
 		controller : "UserController"
 	})
 	
+	.when("/admin_menu", {
+		templateUrl : "c_admin/admin_menu.html",
+		
+	})
+	
 	
 	
 	/**
@@ -119,13 +124,13 @@ app.config(function($routeProvider) {
 		controller : 'JobController'
 	})
 	
-	.when('/view_job_details', {
-		templateUrl : 'c_job/view_job_details.html',
+	.when('/manage_jobApplication', {
+		templateUrl : 'c_admin/manage_jobApplication.html',
 		controller : 'JobController'
 	})
 
-	.when('/post_job', {
-		templateUrl : 'c_job/post_job.html',
+	.when('/manage_postjob', {
+		templateUrl : 'c_admin/manage_postjob.html',
 		controller : 'JobController'
 	})
 	

@@ -1,7 +1,8 @@
 'use strict';
 
 app.factory('BlogService',['$http', '$q','$rootScope',function($http, $q,$rootScope){
-console.log("BlogService..........")
+console.log("BlogService..........");
+
 
 	var BASE_URL='http://localhost:8080/CollaborationRestService'
 		
@@ -62,7 +63,7 @@ console.log("BlogService..........")
          },
          
          deleteBlog: function(id) {
-           	console.log("calling deleteblog ")
+           	console.log("calling deleteblog " +id)
                    return $http.delete(BASE_URL+'/deleteblog/'+id)
                            .then(
                                    function(response){
@@ -95,7 +96,8 @@ console.log("BlogService..........")
                             .then(
                                     function(response){
                                     	
-                                    	$rootScope.selectedBlog=response.data
+                                    	$rootScope.selectedBlog=response.data;
+                                    	console.log($rootScope.selectedBlog);
                                         return response.data;
                                     }, 
                                    function(errResponse){
@@ -104,7 +106,33 @@ console.log("BlogService..........")
                                     }
                             );
             }, 
-         
+            
+            createComment:function(comment){
+            	console.log("calling CreateComment...");
+            	
+            	 return $http.post(BASE_URL+'/addComment/', comment) //1
+                 .then(
+                         function(response){
+                             return response.data;
+                         }, 
+                         function(errResponse){
+                             console.error('Error while creating Comment');
+                             return $q.reject(errResponse);
+                         }
+                 );	
+            },
+            fetchAllComments: function(id) {
+            	console.log("calling fetchAllComments " +id)
+            	
+                    return $http.get(BASE_URL+'/comments/'+id)
+                            .then(
+                                    function(response){
+                                        return response.data;
+                                    }, 
+                                   null
+                            );
+            },
+    		
           
 }
 

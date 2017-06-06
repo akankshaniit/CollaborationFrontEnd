@@ -11,7 +11,7 @@ app.controller(
 				function($scope, JobService, $location, $rootScope,
 						$cookieStore, $http) {
 					console.log("JobController...");
-				//	var this = this;
+					var self = this;
 					$scope.job = {
 						id : '',
 						title : '',
@@ -35,22 +35,38 @@ app.controller(
 							errorMessage : '',
 						};
 					
+					$scope.jobapplication = {
+							id : '',
+							user_id : '',
+							job_id : '',
+							dateApplied : '',
+						    status : '',
+							remark : '',
+							errorCode : '',
+							errorMessage : '',
+							
+						};
+
+					
 					$scope.jobs = []; // json array
 	
-                 $scope.getSelectedJob=getJob;
+					$scope.jobApplications = [];
+					
+                 
 					
 					$scope.orderByMe = function(x) {
 						$scope.myOrderBy = x;
 					}
 					
-					function getJob(id)
+					 self.getAppliedJobs=function(id)
 					{
 						console.log("-getting Job"+id);
 						
 						JobService.getJob(id)
 						.then(
 						        function(d){
-						        	$location.path("/view_job_details");
+						        	
+						        	
 						        },
 						        function(errResponse)
 						        {
@@ -58,6 +74,24 @@ app.controller(
 						        }
 						);
 					};
+					
+					$scope.getByJobID= function(id){
+						console.log("GetBY JobId");
+						console.log("Job Id"+id);
+						JobService
+						       .getByJobID(id)
+						       .then(
+										function(d) {
+										
+										},
+										function(errResponse) {
+											console
+													.error('Error while creating User.');
+										});
+										
+					};
+					
+					
 					
 					//method definition
 					$scope.fetchAllJobs = function() {
@@ -75,19 +109,38 @@ app.controller(
 										});
 					};
 					
-					 function applyJob(jobID)
+					
+					$scope.fetchAllJobApplications = function() {
+						console.log("fetchAllJobApplication...")
+						JobService
+								.fetchAlljobApplications()
+								.then(
+										function(d) {
+											$scope.jobApplications = d;
+											console.log($scope.jobApplications);
+										},
+										function(errResponse) {
+											console
+													.error('Error while fetching Jobs');
+										});
+					};
+					
+					
+					
+					
+					this.applyJob = function(jobID) 
 			         {
 
 			       	  console.log("->Apply for Job :"+jobID)
 			             JobService.applyJob(jobID)
 			                 .then(
 			                              function(d) {
-			                                   self.job = d;
-			                                   
-			                                  alert("Apply Job : " + self.job.errorMessage)
+			                                   $scope.job = d;
+			                                   alert($scope.job.errorMessage);
+			                                  
 			                              },
 			                               function(errResponse){
-			                                   console.error('Error while sending friend request');
+			                                   console.error('Error while Applying job ');
 			                               }
 			                      );
 			         
@@ -113,10 +166,10 @@ app.controller(
 										});
 					};
 					
-					this.updateJob = function(job,id) {
-						console.log("createJob...")
+					this.updateJob = function() {
+						console.log("updateJob...")
 						JobService
-								.updateJob(job)
+								.updateJob($rootScope.id)
 								.then(
 										this.fetchAllJobs,
 										function(errResponse) {
@@ -145,12 +198,20 @@ app.controller(
 						           } );
 						    
 			  };
+			  this.update = function() {
+					{
+						console.log('Update the Job details',
+								id);
+						this.updateJob($rootScope.id);
+					}
+					this.reset();
+				};
 					
 					 this.submit = function() {
 							{
-								console.log('Saving New Job', this.job);
-								this.job.user_id=$rootScope.currentUser.id;
-								this.createJob(this.job);
+								
+								
+								this.createJob($scope.job);
 							}
 							this.reset();
 						};
@@ -168,8 +229,48 @@ app.controller(
 							
 						};
 						
-						
+						 self.callForInterview=function(user_id){
+								console.log("callForInterview......")
+								var remarks= prompt("please enter Reason");
+								JobService.
+								      callForInterview(user_id,remarks)
+								     .then(
+									           function(d){
+									        	   console.log(d);
+									        	   $scope.job=d;
+									        	   $scope.fetchAlljobs();
+									        	   $location.path("/manage_jobApplication");
+									        	   alert($scope.job.errorMessage);
+									           },
+									           function(errResponse) {
+													console
+															.error('Error while rejecting Blog.');
+												
+						               } );
+							    
+							  };		
 					
+							  self.rejectJobApplication=function(user_id){
+									console.log("rejectJobApplication......")
+									var remarks= prompt("please enter Reason");
+									JobService.
+									      rejectJobApplication(user_id,remarks)
+									     .then(
+										           function(d){
+										        	   console.log(d);
+										        	   $scope.job=d;
+										        	   $scope.fetchAlljobs();
+										        	   $location.path("/manage_jobApplication");
+										        	   alert($scope.job.errorMessage);
+										           },
+										           function(errResponse) {
+														console
+																.error('Error while rejecting Blog.');
+													
+							               } );
+								    
+								  };		
+						
 					
 					
 					

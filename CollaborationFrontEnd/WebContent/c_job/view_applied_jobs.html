@@ -1,19 +1,55 @@
-<link rel="stylesheet"  type="text/css" href="resources/css/style4.css">
 
-
-<h2>Welcome to Applied Job</h2>
-<hr color= "blue" >
-
-
-<div class="container" ng-controller="JobController as ctrl">
-     <div class="form-group">
-         <lable>
-           {{selectedJob.title}}
-         </lable>  <br>
-            Applied Job <label>{{selectedJob.jobID}}</label>
-           <label>{{selectedJob.date_time}}</label>   <br><br>
-           <lable>{{selectedJob.descrption}}</lable>
-            <lable>{{selectedJob.status}}</lable>
+<div>
+<div ng-if="!currentUser">
+      <div class="alert alert-danger fade in">
+         <div>you are not logged in... please login <a href="#/login">here</a>
+         to Apply Job
+         </div>
+       
+       <div> if U are not Register....then<a href="#/register">Register here</a>
+       </div>
      </div>
-  </div>   
-     
+   </div>    
+   
+
+<div ng-show="currentUser">
+
+
+
+<div class="container" ng-controller="JobController as ctrl" ng-init="ctrl.getAppliedJobs(currentUser.id)"  >
+ <h2> Applied Job</h2>
+<hr color= "blue" >   
+  
+  
+  <table  class="table table-hover"  >
+        <tr>
+        
+       <td>Title</td>
+        <td>Status</td>
+         <td>Description</td>
+        <td>Date Applied</td>
+       
+        </tr>
+           <tr ng-repeat="ajob in appliedJobs"  ng-init="getByJobID(ajob.job_id)" >
+           
+
+            
+              <td  >
+              {{job.title}}
+              </td>
+               <td>{{job.status}}</td>
+                <td>{{job.description}}</td>
+              
+              <td >
+               {{ajob.dateApplied | date:"medium"}}
+              </td>
+             
+            
+              </td>
+              </tr>  
+        </table> 
+  
+  
+   
+  </div>  
+ </div>    

@@ -1,30 +1,13 @@
-<link rel="stylesheet"  type="text/css" href="resources/css/style3.css">
-
-<div>
+  <div ng-show="currentUser">
    
-    <div ng-if="!currentUser">
-      <div class="alert alert-danger fade in">
-         <div>you are not logged in... please login <a href="#/login">here</a>
-         to create Blog
-         </div>
-       
-       <div> if U are not Register....then<a href="#/register">Register here</a>
-       </div>
-     </div>
-   </div>    
-   
-  
-   
-   <div ng-show="currentUser">
-   
-      <div class="generic container" ng-controller="BlogController as ctrl">
+      <div class="generic container" ng-controller="JobController as ctrl">
       
          <form ng-submit="ctrl.submit()" name="myForm"
 						class="form-horizontal">
 
-					<center><label>Please fill the Blog details</label></center>
+					<center><label> post the Job details</label></center>
 						     <div id="legend">
-                                  <legend class=""><center>Blog Details</center></legend>
+                                  <legend class=""><center>Job Details</center></legend>
                              </div>
 						
 						
@@ -33,7 +16,7 @@
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="title">Title</label>
 								<div class="col-md-7">
-									<input type="text" ng-model="ctrl.blog.title" id="title"
+									<input type="text" ng-model="job.title" id="title"
 										class="username form-control input-sm"
 										placeholder="Enter your title" required ng-minlength="3" />
 								</div>
@@ -45,9 +28,23 @@
 							<div class="form-group col-md-12">
 								<label class="col-md-2 control-lable" for="description">Description</label>
 								<div class="col-md-7">
-									<input type="description" ng-model="ctrl.blog.description" id="description"
+									<input type="description" ng-model="job.description" id="description"
 										class="email form-control input-sm"
-										placeholder="Enter your Blog Description" required />
+										placeholder="Enter your Job Description" required />
+
+								</div>
+							</div>
+						</div>
+						
+						
+						
+						<div class="row">
+							<div class="form-group col-md-12">
+								<label class="col-md-2 control-lable" for="description">Qualification</label>
+								<div class="col-md-7">
+									<input type="description" ng-model="job.qualification" id="description"
+										class="email form-control input-sm"
+										placeholder="Enter your job Qualification" required />
 
 								</div>
 							</div>
@@ -55,13 +52,12 @@
 						
                        	<div class="row">
 							<div class="form-actions floatRight">
-								<input type="submit" value="Add Blog"
+								<input type="submit" value="Post Job"
 									class="btn btn-primary btn-sm">
 								
 							</div>
 						</div>
 					</form>
-  </div>
   </div>
   </div>
   

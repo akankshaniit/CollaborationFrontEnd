@@ -124,7 +124,7 @@ app.controller(
 													this.fetchAllUsers
 													$location
 															.path("/manage_users")
-													alert(this.user.errorMessage)
+												
 
 												},
 
@@ -202,7 +202,7 @@ app.controller(
 														console
 																.log("Valid credentials. Navigating to home page");
   
-														if(user.role=="Admin")	
+														if($scope.user.role=="Admin")	
 															{
 															console.log("You are admin");
 															$scope.fetchAllUsers();

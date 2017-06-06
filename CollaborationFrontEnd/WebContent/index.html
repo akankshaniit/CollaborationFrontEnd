@@ -23,6 +23,7 @@
 	
 	
 	
+	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
    </head>
@@ -34,17 +35,13 @@
 {{currentUser.role}}
 <div ng-show="currentUser.id">
 
-    <div class="nav navbar-nav navbar-left">
-        Welcome:{{currentUser.name}} |<a href="#" ng-click="ctrl.logout()">Logout</a>
-    </div> 
+    
 
     <div class="nav navbar-nav navbar-center">
           |You Logged in as:{{currentUser.role}}
     </div> 
 
-    <div class="nav navbar-nav navbar-right">
-        |<a href="#" ng-click="ctrl.myProfile()">My Profile</a>
-    </div> 
+     
 
   <hr color="green" width="100%">
      <div ng-show="currentUser.role==Admin"></div>
@@ -52,11 +49,7 @@
 
      </div>
 
-    <div ng-hide="currentUser" class="container">
-         <div class="nav navbar-nav navbar-right">
-            <a href="#/login">Login</a>
-         </div>
-    </div>
+   
 <br> <br> <br>
 </div>
 <div ng-view></div>

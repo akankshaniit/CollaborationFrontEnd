@@ -11,16 +11,44 @@
   </div>
 
     <div  class="col-sm-12">
+    
 
-        <table>
+        <table class="table table-hover" >
+        <tr>
+        <td>TITLE</td>
+        <td>Author</td>
+        <td></td>
+        </tr>
            <tr ng-repeat="b in blogs">
            
 
-              <td><a href="#" ng-click="ctrl.getSelectedBlog(b.id)">
-              Title: {{b.title}} - Written By: {{b.user_id}}</a></td>
+              <td ><a href="#" ng-click="ctrl.getSelectedBlog(b.id)">
+              {{b.title}} </a>
               
+              
+              </td>
+              <td ng-controller="UserController" ng-init="getByID(b.user_id)" >
+             
+               {{user.name}}
+              </td>
+              <td >
+              <div  ng-show="currentUser.role=='Admin'">
+          <button type="button" 
+			        ng-click="ctrl.reject(b.id)" 
+			       class="btn btn-info btn-sm">Reject Blog</button>
+        
+        </div>
+          <div  ng-show="currentUser.id==b.user_id">
+          <button type="button" 
+			        ng-click="ctrl.deleteBlog(b.id)" 
+			       class="btn btn-info btn-sm">Delete My Blog</button>
+        
+        </div>
+              </td>
               </tr>  
         </table>
+        
+        
    </div> 
   </div>     
 </div>
