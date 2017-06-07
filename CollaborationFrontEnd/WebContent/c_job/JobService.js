@@ -62,9 +62,9 @@ console.log("JobService..........")
                          );
          },
          
-         updateJob: function( id){
-          	console.log("calling Update Job ")
-                  return $http.post(BASE_URL+'/updatejob/',id)  //2
+         updateJob: function(id){
+          	console.log("calling Update Job "+id)
+                  return $http.put(BASE_URL+'/updatejob/'+id)  //2
                           .then(
                                   function(response){
                                       return response.data;
@@ -126,7 +126,7 @@ console.log("JobService..........")
               	 return $http.get(BASE_URL+'/job/'+id)
               	 .then(
                            function(response){
-                        	   
+                        	   console.log(response.data);
                                return response.data;
                            }, 
                            function(errResponse){
@@ -136,9 +136,10 @@ console.log("JobService..........")
                    );
               },
               
-              callForInterview: function(user_id, remarks) {
+             
+              callForInterview: function(user_id, job_id,remarks) {
                	console.log("callForInterview service ")
-                       return $http.put(BASE_URL+'/callForInterview/'+user_id+'/'+remarks)
+                       return $http.put(BASE_URL+'/callForInterview/'+user_id+'/'+job_id+'/'+remarks)
                                .then(
                                        function(response){
                                            return response.data;
@@ -150,9 +151,9 @@ console.log("JobService..........")
                                );
                },
               
-               rejectJobApplication: function(user_id, remarks) {
+               rejectJobApplication: function(user_id,job_id,remarks) {
                   	console.log("rejectJobApplication service ")
-                          return $http.put(BASE_URL+'/rejectJobApplication/'+user_id+'/'+remarks)
+                          return $http.put(BASE_URL+'/rejectJobApplication/'+user_id+'/'+job_id+'/'+remarks)
                                   .then(
                                           function(response){
                                               return response.data;

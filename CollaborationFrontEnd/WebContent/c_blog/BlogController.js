@@ -101,6 +101,7 @@ app.controller(
 								.createBlog(blog)
 								.then(
 										function(d) {
+											console.log(d);
 											alert("Thank you for Creating Blog");
 											$location.path("/")
 										},
@@ -190,7 +191,7 @@ app.controller(
 					};
 					
 					self.deleteBlog=function(id){
-						console.log("delete")
+						console.log("delete"+id)
 						BlogService.
 						 deleteBlog(id)
 						     .then(

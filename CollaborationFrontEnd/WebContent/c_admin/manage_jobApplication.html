@@ -1,35 +1,33 @@
-<div class="container" ng-controller="JobController as ctrl"   >
+<div class="container" ng-controller="JobController as ctrl"  ng-init="fetchAllJobApplications()"  >
 <h2> Manage Job Application</h2>
 <hr color= "blue" >   
-  
-   {{job.title}}
-  <table  class="table table-hover" ng-init="fetchAllJobApplications()" >
-        <tr>
-       
+  <table  class="table table-hover"  >
+        <tr>      
        <td>User ID</td>
-        <td>Job Title</td>
+        <td>Job ID</td>
          <td>Applied Date</td>
        
        
         </tr>
            
 
-             <tr ng-repeat="jobapplication in jobApplications" ng-init="getByJobID(jobapplication.job_id)" >
+             <tr ng-repeat="jobapplication in jobApplications"  ng-init="getByJobID(jobapplication.job_id)"    >
+                
               <td  >
               {{jobapplication.user_id}}
               </td>
-               <td  >{{job.title}}</td>
+                 <td    >{{jobapplication.job_id}}</td>
                 <td>{{jobapplication.dateApplied |date:"medium"}}</td>
               
                 <td >
                <button type="button" 
-			        ng-click="ctrl.callForInterview(jobapplication.user_id)" 
+			        ng-click="ctrl.callForInterview(jobapplication.user_id,jobapplication.job_id)" 
 			       class="btn btn-info btn-sm">Make Call</button>
                 </td>
               
             <td >
                <button type="button" 
-			        ng-click="ctrl.callForInterview(jobapplication.id)" 
+			        ng-click="ctrl.rejectJobApplication(jobapplication.user_id,jobapplication.job_id)" 
 			       class="btn btn-info btn-sm">Reject Call</button>
                 </td>
               

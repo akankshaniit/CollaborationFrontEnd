@@ -24,7 +24,7 @@ app.controller(
 						
 					};
 
-					this.currentjob = {
+					self.currentjob = {
 							id : '',
 							title : '',
 							description : '',
@@ -50,9 +50,9 @@ app.controller(
 					
 					$scope.jobs = []; // json array
 	
-					$scope.jobApplications = [];
+					$rootScope.jobApplications = [];
 					
-                 
+                 $scope.jobsdetails=[];
 					
 					$scope.orderByMe = function(x) {
 						$scope.myOrderBy = x;
@@ -82,17 +82,16 @@ app.controller(
 						       .getByJobID(id)
 						       .then(
 										function(d) {
-										
+											console.log(d);
+										$scope.job=d;
+											
 										},
 										function(errResponse) {
 											console
 													.error('Error while creating User.');
 										});
 										
-					};
-					
-					
-					
+					};									
 					//method definition
 					$scope.fetchAllJobs = function() {
 						console.log("fetchAllJobs...")
@@ -116,7 +115,7 @@ app.controller(
 								.fetchAlljobApplications()
 								.then(
 										function(d) {
-											$scope.jobApplications = d;
+											$rootScope.jobApplications = d;
 											console.log($scope.jobApplications);
 										},
 										function(errResponse) {
@@ -166,12 +165,14 @@ app.controller(
 										});
 					};
 					
-					this.updateJob = function() {
-						console.log("updateJob...")
+					this.updateJob = function(id) {
+						console.log("updateJob..." +id)
 						JobService
-								.updateJob($rootScope.id)
+								.updateJob(id)
 								.then(
-										this.fetchAllJobs,
+										function(d){
+										$scope.fetchAllJobs
+										},
 										function(errResponse) {
 											console
 													.error('Error while updating Jobs.');
@@ -229,16 +230,16 @@ app.controller(
 							
 						};
 						
-						 self.callForInterview=function(user_id){
+						 self.callForInterview=function(user_id,job_id){
 								console.log("callForInterview......")
 								var remarks= prompt("please enter Reason");
 								JobService.
-								      callForInterview(user_id,remarks)
+								      callForInterview(user_id,job_id,remarks)
 								     .then(
 									           function(d){
 									        	   console.log(d);
 									        	   $scope.job=d;
-									        	   $scope.fetchAlljobs();
+									        	  
 									        	   $location.path("/manage_jobApplication");
 									        	   alert($scope.job.errorMessage);
 									           },
@@ -250,16 +251,16 @@ app.controller(
 							    
 							  };		
 					
-							  self.rejectJobApplication=function(user_id){
+							  self.rejectJobApplication=function(user_id,job_id){
 									console.log("rejectJobApplication......")
 									var remarks= prompt("please enter Reason");
 									JobService.
-									      rejectJobApplication(user_id,remarks)
+									      rejectJobApplication(user_id,job_id,remarks)
 									     .then(
 										           function(d){
 										        	   console.log(d);
 										        	   $scope.job=d;
-										        	   $scope.fetchAlljobs();
+										        	  
 										        	   $location.path("/manage_jobApplication");
 										        	   alert($scope.job.errorMessage);
 										           },
