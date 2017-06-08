@@ -32,10 +32,10 @@
         </tr>
            <tr ng-repeat="ajob in appliedJobs"  ng-init="getByJobID(ajob.job_id)" >   
               <td  >
-              {{job.title}}
+              {{jobdetails[$index].title}}
               </td>
                <td>{{ajob.status}}</td>
-                <td>{{job.description}}</td>
+                <td>{{jobdetails[$index].description}}</td>
               
               <td >
                {{ajob.dateApplied | date:"medium"}}

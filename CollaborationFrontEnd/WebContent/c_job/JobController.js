@@ -52,7 +52,7 @@ app.controller(
 	
 					$rootScope.jobApplications = [];
 					
-                 $scope.jobsdetails=[];
+                 $scope.jobdetails=[];
 					
 					$scope.orderByMe = function(x) {
 						$scope.myOrderBy = x;
@@ -83,7 +83,7 @@ app.controller(
 						       .then(
 										function(d) {
 											console.log(d);
-										$scope.job=d;
+										  $scope.jobdetails.push(d);
 											
 										},
 										function(errResponse) {

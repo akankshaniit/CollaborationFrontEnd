@@ -4,7 +4,7 @@
   <table  class="table table-hover"  >
         <tr>      
        <td>User ID</td>
-        <td>Job ID</td>
+        <td>Job Title</td>
          <td>Applied Date</td>
        
        
@@ -16,7 +16,7 @@
               <td  >
               {{jobapplication.user_id}}
               </td>
-                 <td    >{{jobapplication.job_id}}</td>
+                 <td    > {{jobdetails[$index].title}}</td>
                 <td>{{jobapplication.dateApplied |date:"medium"}}</td>
               
                 <td >
