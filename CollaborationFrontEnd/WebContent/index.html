@@ -30,7 +30,7 @@
 <body ng-app="myApp" ng-controller="UserController as ctrl">
 
 <div ng-include="'c_common/header.html'"></div>
-<div class="container" ng-init="getCurrentUser()">
+<div class="container" ng-init="getCurrentUser()" >
 {{currentUser.name}}
 {{currentUser.role}}
 <div ng-show="currentUser.id">
